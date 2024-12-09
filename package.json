@@ -1,0 +1,21 @@
+{
+  "name": "test-prom-tail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js | npx pino-pretty"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "pino-pretty": "^13.0.0"
+  },
+  "devDependencies": {
+    "pino-loki": "^2.4.0"
+  }
+}

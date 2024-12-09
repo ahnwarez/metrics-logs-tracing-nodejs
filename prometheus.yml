@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "hfnz_platform_web_server"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["server:3000"]
+
+  # Example job for node_exporter
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["node_exporter:9100"]
+
+  # Example job for cadvisor
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"]
