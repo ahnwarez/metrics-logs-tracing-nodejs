@@ -45,6 +45,7 @@ app.get("/", async (_, res) => {
 
   // Use startActiveSpan to properly handle context
   const span = trace.getTracer("hello-tracer").startSpan("get_all_users");
+  span.setAttribute("endpoint", "/");
   try {
     res.send("Hello World!");
   } catch (error) {
