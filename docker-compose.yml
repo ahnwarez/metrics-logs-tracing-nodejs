@@ -30,18 +30,6 @@ services:
       - GF_PLUGINS_ENABLE_ALPHA=true
     networks:
       - monitoring
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib
-    container_name: otel-collector
-    ports:
-      - "4317:4317"
-      - "55681:55681"
-    volumes:
-      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
-    command:
-      - "-config.file=etc/otel-collector-config.yml"
-    networks:
-      - monitoring
 
   tempo:
     image: grafana/tempo:latest
