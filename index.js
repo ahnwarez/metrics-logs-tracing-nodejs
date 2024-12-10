@@ -1,5 +1,8 @@
-const express = require("express");
-const pino = require("pino");
+import express from "express";
+import pino from "pino";
+import { pinoHttp } from "pino-http";
+import "./tracing.js";
+import { trace } from "@opentelemetry/api";
 
 const transport = pino.transport({
   targets: [
@@ -23,10 +26,10 @@ const transport = pino.transport({
 const logger = pino(transport);
 
 const app = express();
-
 // Use pino-http for HTTP request logging
+
 app.use(
-  require("pino-http")({
+  pinoHttp({
     logger,
     customLogLevel: (res) => {
       if (res.statusCode >= 400) return "error";
@@ -35,12 +38,21 @@ app.use(
   })
 );
 
-app.get("/", (_, res) => {
-  // Logs go directly to stdout
+app.get("/", async (_, res) => {
   logger.info("hello from info and express");
   logger.warn("hello from warn and express");
   logger.error("hello from error and express");
-  res.send("Hello World!");
+
+  // Use startActiveSpan to properly handle context
+  const span = trace.getTracer("hello-tracer").startSpan("get_all_users");
+  try {
+    res.send("Hello World!");
+  } catch (error) {
+    span.recordException(error);
+    res.status(500).json({ error: error.message });
+  } finally {
+    span.end();
+  }
 });
 
 app.listen(3000, () => {

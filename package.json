@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js | npx pino-pretty"
   },
@@ -10,12 +11,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.54.0",
+    "@opentelemetry/exporter-otlp-grpc": "^0.26.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.56.0",
+    "@opentelemetry/instrumentation": "^0.56.0",
+    "@opentelemetry/instrumentation-express": "^0.46.0",
+    "@opentelemetry/instrumentation-http": "^0.56.0",
+    "@opentelemetry/resources": "^1.29.0",
+    "@opentelemetry/sdk-trace-base": "^1.29.0",
+    "@opentelemetry/sdk-trace-node": "^1.29.0",
+    "@opentelemetry/semantic-conventions": "^1.28.0",
     "express": "^4.21.2",
     "pino": "^9.5.0",
     "pino-http": "^10.3.0",
     "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
+    "@opentelemetry/sdk-node": "^0.56.0",
     "pino-loki": "^2.4.0"
   }
 }
